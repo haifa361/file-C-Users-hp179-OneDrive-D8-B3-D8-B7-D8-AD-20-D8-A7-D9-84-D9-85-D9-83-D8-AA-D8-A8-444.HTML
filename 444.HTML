@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة الأمن الإلكتروني</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e0f7fa; /* لون خلفية فاتح */
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #ff6f61; /* لون عنوان جذاب */
+            font-size: 2em;
+        }
+        .question {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option {
+            padding: 15px;
+            border: 2px solid #ff6f61;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #fff3e0; /* لون خلفية الخيارات */
+            transition: background-color 0.3s, transform 0.2s;
+            position: relative;
+        }
+        .option:hover {
+            background-color: #ffe0b2; /* لون عند التمرير */
+            transform: scale(1.05);
+        }
+        .feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .stats {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .stats h2 {
+            color: #00796b; /* لون عنوان الإحصائيات */
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #4caf50; /* لون شريط التقدم */
+            width: 0;
+            transition: width 0.5s;
+        }
+        .icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+        }
+        .correct {
+            border-color: #4caf50; /* لون حدود الإجابة الصحيحة */
+        }
+        .wrong {
+            border-color: #f44336; /* لون حدود الإجابة الخاطئة */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>لعبة الأمن الإلكتروني</h1>
+        <div id="quiz">
+            <div class="question" id="question1">
+                <p>1. ما هو أفضل إجراء لتأمين حسابك على الإنترنت؟</p>
+                <div class="options">
+                    <div class="option" onclick="checkAnswer(1, 'a', this)">استخدام كلمة مرور قوية</div>
+                    <div class="option" onclick="checkAnswer(1, 'b', this)">مشاركة كلمة المرور مع الأصدقاء</div>
+                    <div class="option" onclick="checkAnswer(1, 'c', this)">عدم تغيير كلمة المرور أبدًا</div>
+                </div>
+            </div>
+            <div class="question" id="question2">
+                <p>2. ماذا تفعل إذا تلقيت بريدًا إلكترونيًا من شخص لا تعرفه؟</p>
+                <div class="options">
+                    <div class="option" onclick="checkAnswer(2, 'a', this)">فتحه فورًا</div>
+                    <div class="option" onclick="checkAnswer(2, 'b', this)">حذفه دون فتحه</div>
+                    <div class="option" onclick="checkAnswer(2, 'c', this)">إعادة توجيهه إلى أصدقائك</div>
+                </div>
+            </div>
+            <div class="question" id="question3">
+                <p>3. ما هو أفضل إجراء لحماية جهازك من الفيروسات؟</p>
+                <div class="options">
+                    <div class="option" onclick="checkAnswer(3, 'a', this)">تنزيل برامج من مصادر غير موثوقة</div>
+                    <div class="option" onclick="checkAnswer(3, 'b', this)">تثبيت برنامج مكافحة فيروسات</div>
+                    <div class="option" onclick="checkAnswer(3, 'c', this)">عدم تحديث النظام أبدًا</div>
+                </div>
+            </div>
+            <div class="question" id="question4">
+                <p>4. ما هو أفضل إجراء عند استخدام شبكة Wi-Fi عامة؟</p>
+                <div class="options">
+                    <div class="option" onclick="checkAnswer(4, 'a', this)">إدخال معلوماتك البنكية</div>
+                    <div class="option" onclick="checkAnswer(4, 'b', this)">استخدام VPN</div>
+                    <div class="option" onclick="checkAnswer(4, 'c', this)">عدم اتخاذ أي إجراءات أمنية</div>
+                </div>
+            </div>
+            <div class="question" id="question5">
+                <p>5. ما هو أفضل إجراء عند تلقي رسالة تحتوي على رابط مجهول؟</p>
+                <div class="options">
+                    <div class="option" onclick="checkAnswer(5, 'a', this)">النقر على الرابط فورًا</div>
+                    <div class="option" onclick="checkAnswer(5, 'b', this)">التأكد من مصدر الرسالة أولاً</div>
+                    <div class="option" onclick="checkAnswer(5, 'c', this)">إعادة توجيه الرسالة إلى الجميع</div>
+                </div>
+            </div>
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <div class="stats" id="stats">
+            <h2>إحصائيات اللاعب</h2>
+            <p>الإجابات الصحيحة: <span id="correctAnswers">0</span></p>
+            <p>الإجابات الخاطئة: <span id="wrongAnswers">0</span></p>
+            <div class="progress-bar">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>إعداد: معلمة صعوبات التعلم هيفاء عبدالعزيز الشنفري</p>
+            <p>مدرسة القوف للتعليم الأساسي</p>
+        </div>
+    </div>
+
+    <script>
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
+        const totalQuestions = 5;
+        const correctOptions = {
+            1: 'a',
+            2: 'b',
+            3: 'b',
+            4: 'b',
+            5: 'b'
+        };
+
+        function checkAnswer(questionNumber, selectedOption, element) {
+            const feedback = document.getElementById('feedback');
+            const icon = document.createElement('span');
+            icon.classList.add('icon');
+
+            if (correctOptions[questionNumber] === selectedOption) {
+                feedback.textContent = '🎉 إجابة صحيحة! أحسنت!';
+                feedback.style.color = '#4caf50';
+                correctAnswers++;
+                icon.textContent = '✔';
+                element.classList.add('correct');
+            } else {
+                feedback.textContent = '❌ إجابة خاطئة! حاول مرة أخرى.';
+                feedback.style.color = '#f44336';
+                wrongAnswers++;
+                icon.textContent = '❌';
+                element.classList.add('wrong');
+            }
+            element.appendChild(icon);
+            element.style.pointerEvents = 'none'; // تعطيل النقر بعد الإجابة
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('correctAnswers').textContent = correctAnswers;
+            document.getElementById('wrongAnswers').textContent = wrongAnswers;
+            const progress = (correctAnswers / totalQuestions) * 100;
+            document.getElementById('progressBarFill').style.width = `${progress}%`;
+        }
+    </script>
+</body>
+</html>
